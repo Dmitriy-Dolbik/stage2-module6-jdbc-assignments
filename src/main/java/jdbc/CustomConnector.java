@@ -7,7 +7,7 @@ import java.sql.SQLException;
 public class CustomConnector {
     public Connection getConnection(String url) {
         try {
-            return DriverManager.getConnection(url + "myfirstdb");
+            return DriverManager.getConnection(url);
         } catch (SQLException e){
             e.printStackTrace();
             return  null;

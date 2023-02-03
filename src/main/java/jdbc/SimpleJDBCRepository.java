@@ -31,10 +31,20 @@ public class SimpleJDBCRepository
     private static final String findUserByNameSQL = "SELECT * FROM users WHERE firstname=?";
     private static final String findAllUserSQL = "SELECT * FROM users";
 
+    {
+        try {
+            connection = CustomDataSource.getInstance().getConnection();
+            st = connection.createStatement();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
     public Long createUser(User createdUser)
     {
         try
         {
+            st = connection.createStatement();
             connection = CustomDataSource.getInstance().getConnection();
             ps = connection.prepareStatement(createUserSQL, Statement.RETURN_GENERATED_KEYS);
 
@@ -42,7 +52,6 @@ public class SimpleJDBCRepository
             ps.setString(2, createdUser.getFirstName());
             ps.setInt(3, createdUser.getAge());
             return (long) ps.executeUpdate();
-
         }
         catch (SQLException e)
         {
@@ -55,6 +64,7 @@ public class SimpleJDBCRepository
         User user = null;
         try
         {
+            st = connection.createStatement();
             connection = CustomDataSource.getInstance().getConnection();
             ps = connection.prepareStatement(findUserByIdSQL);
             ps.setLong(1, userId);
@@ -79,6 +89,7 @@ public class SimpleJDBCRepository
         User user = null;
         try
         {
+            st = connection.createStatement();
             connection = CustomDataSource.getInstance().getConnection();
             ps = connection.prepareStatement(findUserByNameSQL);
             ps.setString(1, userName);
@@ -103,6 +114,7 @@ public class SimpleJDBCRepository
         List<User> users = new ArrayList<>();
         try
         {
+            st = connection.createStatement();
             connection = CustomDataSource.getInstance().getConnection();
             ps = connection.prepareStatement(findAllUserSQL);
             ResultSet resultSet = ps.executeQuery();
@@ -128,6 +140,7 @@ public class SimpleJDBCRepository
     {
         try
         {
+            st = connection.createStatement();
             connection = CustomDataSource.getInstance().getConnection();
             ps = connection.prepareStatement(updateUserSQL);
 
@@ -149,6 +162,7 @@ public class SimpleJDBCRepository
     {
         try
         {
+            st = connection.createStatement();
             connection = CustomDataSource.getInstance().getConnection();
             ps = connection.prepareStatement(deleteUser);
 
