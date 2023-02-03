@@ -6,16 +6,15 @@ public class Test
     {
         SimpleJDBCRepository simpleJDBCRepository = new SimpleJDBCRepository();
         User createdUser = new User();
-        createdUser.setFirstName("TEST1");
-        createdUser.setLastName("TEST1");
+        createdUser.setFirstName("TEST3");
+        createdUser.setLastName("TEST3");
         createdUser.setAge(34);
-
-
-        //System.out.println(simpleJDBCRepository.createUser(user));
-        //System.out.println(simpleJDBCRepository.findUserById(1l));
-        //System.out.println(simpleJDBCRepository.findUserByName("Jack"));
+        //System.out.println(simpleJDBCRepository.createUser(createdUser));
+        //System.out.println(simpleJDBCRepository.findUserById(2l));
+        //System.out.println(simpleJDBCRepository.findUserByName("TEST1"));
         //System.out.println(simpleJDBCRepository.findAllUser());
-        //System.out.println(simpleJDBCRepository.updateUser(new User(1l,"Update", "Update", 3)));
+        //System.out.println(simpleJDBCRepository.updateUser(new User(2l,"Update", "Update", 3)));
+        //simpleJDBCRepository.deleteUser(1l);
 
     }
 }
