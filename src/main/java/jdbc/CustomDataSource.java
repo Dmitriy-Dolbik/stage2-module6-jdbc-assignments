@@ -1,9 +1,12 @@
 package jdbc;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.SQLFeatureNotSupportedException;
+import java.util.Properties;
 import java.util.logging.Logger;
 
 import javax.sql.DataSource;
@@ -28,8 +31,20 @@ public class CustomDataSource implements DataSource {
     }
 
     public static CustomDataSource getInstance() {
+
         if (instance == null) {
-            instance = new CustomDataSource("org.postgresql.Driver", "jdbc:postgresql://localhost:5432/myfirstdb", "password", "user" );
+            Properties properties = new Properties();
+            try (InputStream input = CustomDataSource.class.getClassLoader().getResourceAsStream("app.properties")) {
+                properties.load(input);
+                instance = new CustomDataSource(
+                        properties.getProperty("postgres.driver"),
+                        properties.getProperty("postgres.url"),
+                        properties.getProperty("postgres.password"),
+                        properties.getProperty("postgres.name")
+                );
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         return instance;
     }

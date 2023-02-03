@@ -31,15 +31,16 @@ public class SimpleJDBCRepository
     private static final String findUserByNameSQL = "SELECT * FROM users WHERE firstname=?";
     private static final String findAllUserSQL = "SELECT * FROM users";
 
-    public Long createUser(String firstname, String lastname, int age)
+    public Long createUser(User createdUser)
     {
         try
         {
             connection = CustomDataSource.getInstance().getConnection();
             ps = connection.prepareStatement(createUserSQL, Statement.RETURN_GENERATED_KEYS);
-            ps.setString(1, firstname);
-            ps.setString(2, lastname);
-            ps.setInt(3, age);
+
+            ps.setString(1, createdUser.getFirstName());
+            ps.setString(2, createdUser.getFirstName());
+            ps.setInt(3, createdUser.getAge());
             return (long) ps.executeUpdate();
 
         }
@@ -123,17 +124,17 @@ public class SimpleJDBCRepository
         return users;
     }
 
-    public User updateUser(Long id, String firstname, String lastname, int age)
+    public User updateUser(User updatedUser)
     {
         try
         {
             connection = CustomDataSource.getInstance().getConnection();
             ps = connection.prepareStatement(updateUserSQL);
 
-            ps.setString(1, firstname);
-            ps.setString(2, lastname);
-            ps.setInt(3, age);
-            ps.setLong(4, id);
+            ps.setString(1, updatedUser.getFirstName());
+            ps.setString(2, updatedUser.getFirstName());
+            ps.setInt(3, updatedUser.getAge());
+            ps.setLong(4, updatedUser.getId());
 
             ps.executeUpdate();
         }
@@ -141,7 +142,7 @@ public class SimpleJDBCRepository
         {
             e.printStackTrace();
         }
-        return new User(id, firstname, lastname, age);
+        return updatedUser;
     }
 
     private void deleteUser(Long userId)
