@@ -24,12 +24,12 @@ public class SimpleJDBCRepository
     private PreparedStatement ps = null;
     private Statement st = null;
 
-    private static final String createUserSQL = "INSERT INTO users (firstname, lastname, age) VALUES (?,?,?)";
-    private static final String updateUserSQL = "UPDATE users SET firstname=?, lastname=?, age=? WHERE id=?";
-    private static final String deleteUser = "DELETE FROM users WHERE id=?";
-    private static final String findUserByIdSQL = "SELECT * FROM users WHERE id=?";
-    private static final String findUserByNameSQL = "SELECT * FROM users WHERE firstname=?";
-    private static final String findAllUserSQL = "SELECT * FROM users";
+    private static final String createUserSQL = "INSERT INTO myusers (firstname, lastname, age) VALUES (?,?,?)";
+    private static final String updateUserSQL = "UPDATE myusers SET firstname=?, lastname=?, age=? WHERE id=?";
+    private static final String deleteUser = "DELETE FROM myusers WHERE id=?";
+    private static final String findUserByIdSQL = "SELECT * FROM myusers WHERE id=?";
+    private static final String findUserByNameSQL = "SELECT * FROM myusers WHERE firstname=?";
+    private static final String findAllUserSQL = "SELECT * FROM myusers";
 
     {
         try
