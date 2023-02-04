@@ -45,6 +45,7 @@ public class SimpleJDBCRepository
     public Long createUser(User createdUser)
     {
         //using Statement
+        Long createdUserId = null;
         try
         {
             connection = CustomDataSource.getInstance().getConnection();
@@ -55,13 +56,18 @@ public class SimpleJDBCRepository
 
             String SQL = createUserSQL.replace("?,?,?", "'" + firstName + "'"
             + "," + "'" + lastName + "'" + "," + age);
-            return (long) st.executeUpdate(SQL);
+            st.executeUpdate(SQL, Statement.RETURN_GENERATED_KEYS);
+
+            ResultSet rs = st.getGeneratedKeys();
+            if (rs.next()) {
+                createdUserId = rs.getLong(1);
+            }
         }
         catch (SQLException throwables)
         {
             throwables.printStackTrace();
         }
-        return 0l;
+        return createdUserId;
 
         //using PreparedStatement
         /*try
