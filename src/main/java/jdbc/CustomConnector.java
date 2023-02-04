@@ -13,7 +13,6 @@ public class CustomConnector {
             return  null;
         }
     }
-
     public Connection getConnection(String url, String user, String password)  {
         try {
             return DriverManager.getConnection(url, user, password);

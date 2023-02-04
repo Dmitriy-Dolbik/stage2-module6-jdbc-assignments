@@ -47,6 +47,7 @@ public class SimpleJDBCRepository
         //using Statement
         try
         {
+            connection = CustomDataSource.getInstance().getConnection();
             st = connection.createStatement();
             String firstName = createdUser.getFirstName();
             String lastName = createdUser.getLastName();
@@ -77,8 +78,7 @@ public class SimpleJDBCRepository
         catch (SQLException e)
         {
             throw new RuntimeException(e);
-
-        return 0l;}*/
+        }*/
     }
 
     public User findUserById(Long userId)
@@ -88,6 +88,7 @@ public class SimpleJDBCRepository
 
         try
         {
+            connection = CustomDataSource.getInstance().getConnection();
             st = connection.createStatement();
             String SQL = findUserByIdSQL.replace("?", "'" + userId + "'");
             ResultSet resultSet = st.executeQuery(SQL);
@@ -139,6 +140,7 @@ public class SimpleJDBCRepository
 
         try
         {
+            connection = CustomDataSource.getInstance().getConnection();
             st = connection.createStatement();
             String SQL = findUserByNameSQL.replace("?", "'" + userName + "'");
             ResultSet resultSet = st.executeQuery(SQL);
@@ -190,6 +192,7 @@ public class SimpleJDBCRepository
 
         try
         {
+            connection = CustomDataSource.getInstance().getConnection();
             st = connection.createStatement();
             ResultSet resultSet = st.executeQuery(findAllUserSQL);
 
@@ -245,6 +248,7 @@ public class SimpleJDBCRepository
         User user = null;
         try
         {
+            connection = CustomDataSource.getInstance().getConnection();
             st = connection.createStatement();
             long id = updatedUser.getId();
             String firstName = updatedUser.getFirstName();
@@ -290,6 +294,7 @@ public class SimpleJDBCRepository
         //using Statement
         try
         {
+            connection = CustomDataSource.getInstance().getConnection();
             st = connection.createStatement();
             String SQL = deleteUser.replace("?", String.valueOf(userId));
             st.executeUpdate(SQL);
